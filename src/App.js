@@ -1,24 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import NavBar from './components/NavBar/NavBar';
+import Main from './components/MainContainer/Main';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isPhysician, setIsPhysician] = useState(false);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  }
+
+  const handlePhysicianLogin = () => {
+    setIsPhysician(true);
+    setIsLoggedIn(true);
+  }
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setIsPhysician(false);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar loggedIn={isLoggedIn} handleLogout={handleLogout} isPhysician={isPhysician} />
+      <Main handleLogin={handleLogin} handlePhysicianLogin={handlePhysicianLogin} />
+    </>
   );
 }
 
