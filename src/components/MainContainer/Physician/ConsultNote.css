@@ -1,0 +1,17 @@
+.note-close-btn {
+    position: absolute;
+    top: 4px;
+    right: 15px;
+    font-size: 2em;
+}
+
+.consult-textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+}
+
+.note-p {
+    padding: 20px 35px;
+    text-align: justify;
+}

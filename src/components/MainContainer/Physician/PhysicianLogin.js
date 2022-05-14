@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import '../Patient/SignIn.css';
 
@@ -7,16 +7,19 @@ function PhysicianLogin({ handlePhysicianLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handlePhysicianLogin();
+    navigate('/provider-appointments');
   }
 
   return (
     <div className="login-div">
       <div className="sign-up-form-div">
           <h1>Physician Login</h1>
-          <form className="sign-up-form">
+          <form className="sign-up-form" onSubmit={handleSubmit}>
             <span>
                 <label>Username:</label>
                 <input 
@@ -38,9 +41,7 @@ function PhysicianLogin({ handlePhysicianLogin }) {
                 />
             </span>
             <br/>
-            <NavLink to="/dashboard">
-                <button className="sign-in-btn" onClick={handleSubmit} type="submit">Sign In</button>
-            </NavLink>
+            <button className="sign-in-btn" type="submit">Sign In</button>
           </form>
       </div>
     </div>  

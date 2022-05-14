@@ -43,11 +43,11 @@ function NavBar({ loggedIn, handleLogout, isPhysician }) {
                 <div>
                     { isPhysician ? 
                     <ul>
-                        <NavLink to="/dashboard">
-                            <li className="nav-item">Dashboard</li>
-                        </NavLink>
                         <NavLink to="/provider-appointments">
-                            <li className="nav-item">Appointments</li>
+                            <li className="nav-item">Virtual Care Visits</li>
+                        </NavLink>
+                        <NavLink to="/patients">
+                            <li className="nav-item">Patients</li>
                         </NavLink>
                         <NavLink to="/provider-chat">
                             <li className="nav-item">Chat</li>
@@ -108,7 +108,7 @@ function NavBar({ loggedIn, handleLogout, isPhysician }) {
                         { showDropDown ? <div className="dropdown-content">
                             <ul>
                                 <li>
-                                    <NavLink exact to="/signIn">
+                                    <NavLink to="/signIn">
                                         <span className="dropdown-span">
                                             <i className="fa-solid fa-user"></i>
                                         </span>
@@ -116,7 +116,7 @@ function NavBar({ loggedIn, handleLogout, isPhysician }) {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <NavLink exact to="/provider-login">
+                                    <NavLink to="/provider-login">
                                         <span className="dropdown-span">
                                             <i className="fa-solid fa-user-doctor"></i>
                                         </span>

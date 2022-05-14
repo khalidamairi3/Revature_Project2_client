@@ -97,8 +97,8 @@ function Register({ handledLogin }) {
                         required
                     />
         
-                  <p><button type="submit">Submit</button></p> 
-                  <p class="small-font">Already have an account? <NavLink exact to="/signin"><span className="text-link">Login here</span></NavLink>.</p>
+                  <p><button className="sign-in-btn" type="submit">Submit</button></p> 
+                  <p className="small-font">Already have an account? <NavLink exact to="/signin"><span className="text-link">Login here</span></NavLink>.</p>
                 </form>
                 </div>
             </div>

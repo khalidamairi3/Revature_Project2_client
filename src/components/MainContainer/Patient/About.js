@@ -30,7 +30,6 @@ function About() {
             <button className="learn-more-btn">Get Started</button>
           </span>
         </NavLink>
-        
     </div>
   )
 }

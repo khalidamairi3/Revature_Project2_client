@@ -13,9 +13,9 @@ function Chat() {
       <h1>Chat</h1>
       <p>Start chatting with a patient now.</p> 
       { seeChat ? <button onClick={handleSeeChat}>Close Chat</button> : <button onClick={handleSeeChat}>Start Chat</button>}
-      { seeChat ? <ChatRoom /> : null }
+      { seeChat ? <ChatRoom closeModal={handleSeeChat} /> : null }
     </div>
   )
 }
 
-export default Chat
+export default Chat;
