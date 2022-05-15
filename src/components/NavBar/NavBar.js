@@ -60,6 +60,9 @@ function NavBar({ loggedIn, handleLogout, isPhysician }) {
                         <NavLink to="/about">
                             <li className="nav-item">About</li>
                         </NavLink>
+                        <NavLink to="/physicians-list">
+                            <li className="nav-item">Explore Physicians</li>
+                        </NavLink>
                         <NavLink to="/appointments">
                             <li className="nav-item">Appointments</li>
                         </NavLink>
@@ -75,6 +78,9 @@ function NavBar({ loggedIn, handleLogout, isPhysician }) {
                     </NavLink>
                     <NavLink to="/about">
                         <li className="nav-item">About</li>
+                    </NavLink>
+                    <NavLink to="/physicians-list">
+                            <li className="nav-item">Explore Physicians</li>
                     </NavLink>
                 </div>
                 }

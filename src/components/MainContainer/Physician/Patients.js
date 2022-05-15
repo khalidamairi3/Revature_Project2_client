@@ -4,7 +4,7 @@ import './Patients.css';
 function Patients() {
   return (
     <div className="div-container">
-          <h1>Patient Database</h1>
+          <h1>Patient Registry</h1>
           <div className="search-bar">
           <input
             className="search"

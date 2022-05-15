@@ -79,3 +79,7 @@ table.patients-table {
 textarea:focus, input:focus{
   outline: none;
 }
+
+tr:hover {
+  background-color: #c7fdf4;
+}
