@@ -3,6 +3,7 @@
     top: 4px;
     right: 15px;
     font-size: 2em;
+    cursor: pointer;
 }
 
 .consult-textarea {

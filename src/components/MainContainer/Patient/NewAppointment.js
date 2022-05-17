@@ -31,20 +31,21 @@ function NewAppointment({ token, onAddAppointment }) {
             "time": time
         }
       
-          axios({
-            method: 'post',
-            url: 'appointment/request',
-            data: formData,
-            headers: {"Authorization": `Bearer ${token}` }
-            })
+        axios({
+           method: 'post',
+           url: 'appointment/request',
+           data: formData,
+           headers: {"Authorization": `Bearer ${token}` }
+        })
+        // get appointment body back
             // .then(r => r.json())
             // .then(newAppointment => onAddAppointment(newAppointment))
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (response) {
-                console.log(response);
-            });
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (response) {
+            console.log(response);
+          });
     }
     
 

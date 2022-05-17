@@ -15,7 +15,7 @@ function PhysicianAppointments({ userData, token }) {
   const id = userData.id
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/appointment/doctor/1`, {headers: {"Authorization": `Bearer ${token}`} })
+    axios.get(`http://localhost:8080/appointment/doctor/${id}`, {headers: {"Authorization": `Bearer ${token}`} })
     .then(res => {
       setAppointments(res.data)
     })
@@ -40,7 +40,7 @@ function PhysicianAppointments({ userData, token }) {
   }
 
   const appointmentInfo = filterAppointments.map(appointment => {
-      return <DrAppointmentInfo key={appointment.id} appointment={appointment} handleDeleted={handleDeleted} />
+      return <DrAppointmentInfo key={appointment.id} appointment={appointment} handleDeleted={handleDeleted} token={token} />
   })
 
     return (
