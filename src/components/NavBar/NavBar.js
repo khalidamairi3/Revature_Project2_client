@@ -46,6 +46,9 @@ function NavBar({ loggedIn, handleLogout, isPhysician }) {
                         <NavLink to="/provider-appointments">
                             <li className="nav-item">Virtual Care Visits</li>
                         </NavLink>
+                        <NavLink to="/physicians-network">
+                            <li className="nav-item">Physician Network</li>
+                        </NavLink>
                         <NavLink to="/patients">
                             <li className="nav-item">Patients</li>
                         </NavLink>
@@ -89,7 +92,7 @@ function NavBar({ loggedIn, handleLogout, isPhysician }) {
             <div className="right">
                 { loggedIn ? 
                     <ul>
-                        <NavLink to="/chat">
+                        <NavLink to="/provider-profile">
                             <li className="nav-item">
                                 <i className="fa-solid fa-user"></i> 
                                 <span className="text">Profile</span>

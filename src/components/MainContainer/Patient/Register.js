@@ -11,14 +11,14 @@ function Register({ handledLogin }) {
     const [confirmPassword, setConfirmPassword] = useState("")
 
     function handleSubmit(e){
-        e.preventDefault()
+        e.preventDefault();
         handledLogin();
         // const formData = {
         //     firstName,
         //     lastName,
         //     username,
-        //     email,
-        //     password
+        //     password,
+        //     phone,
         // }
 
         // if (password !== confirmPassword){
@@ -39,67 +39,62 @@ function Register({ handledLogin }) {
     return (
         <div className="login-div">
             <div className="register-form-div">
-              <h1 className="sign-up">New Patient</h1> 
+              <h1 className="new-patient">New Patient</h1> 
               <div className="form-container">
-                <form className="sign-up-form" onSubmit={handleSubmit}>
-                    <label>First Name:</label>
+                <form className="register-form" onSubmit={handleSubmit}>
                     <input 
                         className="form-input"
                         type="text"
                         name="firstName"
+                        placeholder="first Name"
                         value={firstName}
                         onChange={e => setFirstName(e.target.value)}
                         required
                     />
-        
-                    <label>Last Name:</label>
                     <input 
                         type="text"
                         name="lastName"
+                        placeholder="last Name"
                         value={lastName}
                         onChange={e => setLastName(e.target.value)}
                         required
                     />
-
-                    <label>Username:</label>
                     <input 
                         type="text"
                         name="username"
+                        placeholder="username"
                         value={username}
                         onChange={e => setUsername(e.target.value)}
                         required
                     />
-              
-                  <label>Phone Number:</label>
-                    <input 
-                        type="text"
-                        name="phone"
-                        value={phone}
-                        onChange={e => setPhone(e.target.value)}
-                        required
-                    />
-              
-                    <label>Password:</label>
                     <input 
                         type="password"
                         name="password"
+                        placeholder="password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         required
                     />
-         
-                  <label>Confirm Password:</label>
                     <input 
                         type="password"
                         name="confirmPassword"
+                        placeholder="password"
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
                         required
                     />
-        
+                    <input 
+                        type="text"
+                        name="phone"
+                        placeholder="phone number"
+                        value={phone}
+                        onChange={e => setPhone(e.target.value)}
+                        required
+                    />
+
                   <p><button className="sign-in-btn" type="submit">Submit</button></p> 
-                  <p className="small-font">Already have an account? <NavLink exact to="/signin"><span className="text-link">Login here</span></NavLink>.</p>
                 </form>
+                <p className="small-font">Already have an account? <NavLink exact to="/signin"><span className="text-link">Login here</span></NavLink>.</p>
                 </div>
             </div>
         </div>

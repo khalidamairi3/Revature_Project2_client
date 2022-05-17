@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './NewAppointment.css';
 import TimePicker from "rc-time-picker";
 import 'rc-time-picker/assets/index.css';
@@ -7,13 +8,10 @@ import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { format, set } from 'date-fns';
 
-function NewAppointment() {
+function NewAppointment({ token, onAddAppointment }) {
     const [physician, setPhysician] = useState("");
     const [patient, setPatient] = useState("");
-    // const [date, setDate] = useState("");
     const [time, setTime] = useState("");
-    // const [approved, setApproved] = useState(false);
-    // const [note, setNote] = useState("")
     const [selected, setSelected] = useState();
     const [seeCalendar, setSeeCalendar] = useState(false);
 
@@ -24,8 +22,31 @@ function NewAppointment() {
       day = format(selected, 'PPP');
     }
     
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = {
+            "drLastName": physician,
+            "ptLastName": patient,
+            "date": day,
+            "time": time
+          }
+      
+          axios({
+            method: 'post',
+            url: 'appointment/request',
+            data: formData,
+            headers: {"Authorization": `Bearer ${token}` }
+            })
+            // .then(r => r.json())
+            // .then(newAppointment => onAddAppointment(newAppointment))
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (response) {
+                console.log(response);
+            });
     }
+    
 
     const handleCalendar = () => {
         setSeeCalendar(!seeCalendar);
@@ -43,6 +64,7 @@ function NewAppointment() {
                     <span className="input-span">
                         <input 
                             className="new-app-input"
+                            placeholder="Patient Last Name"
                             type="text"
                             name="name"
                             value={patient}
@@ -56,6 +78,7 @@ function NewAppointment() {
                     <span className="input-span">
                         <input 
                             className="new-app-input"
+                            placeholder="Physician Last Name"
                             type="text"
                             name="name"
                             value={physician}
@@ -80,7 +103,7 @@ function NewAppointment() {
                             />
                             
                             { seeCalendar ? 
-                                <div className="calendar" onClick={closeCalendar} >
+                                <div className="calendar" >
                                     <span className="calendar-close-btn" onClick={closeCalendar}>&times;</span>
                                     <DayPicker
                                         mode="single"

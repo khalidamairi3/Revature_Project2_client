@@ -1,18 +1,39 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import '../Patient/SignIn.css';
+import axios from 'axios';
 
-function PhysicianLogin({ handlePhysicianLogin }) {
+
+function PhysicianLogin({ handlePhysicianLogin, userData, setUserData, token, setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [invalid, setInvalid] = useState(false);
+ 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handlePhysicianLogin();
-    navigate('/provider-appointments');
+
+    const formData = {
+      username: username,
+      password: password
+    }
+
+    axios.post(`doctor/login`, formData)
+      .then(res => {
+        console.log(res);
+        console.log(res.data)
+        setUserData(res.data)
+        setToken(res.headers.token)
+        console.log(res.headers.token)
+        localStorage.setItem('token', res.data.token);  
+        handlePhysicianLogin();
+        navigate('/provider-profile');
+      })
+      .catch(err => {
+        console.log(err);
+        setInvalid(true);
+      })
   }
 
   return (
@@ -21,28 +42,31 @@ function PhysicianLogin({ handlePhysicianLogin }) {
           <h1>Physician Login</h1>
           <form className="sign-up-form" onSubmit={handleSubmit}>
             <span>
-                <label>Username:</label>
-                <input 
-                    type="text"
-                    name="username"
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                    required
-                />
+              <input 
+                      type="text"
+                      name="username"
+                      placeholder="username"
+                      value={username}
+                      onChange={e => setUsername(e.target.value)}
+                      required
+                  />
+                  <input 
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      required
+                  />
             </span>
-            <span>
-                <label>Password:</label>
-                <input 
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    required
-                />
-            </span>
+            { invalid ?
+              <span className="err-msg">Username or Password is incorrect.</span> 
+            : null }
             <br/>
             <button className="sign-in-btn" type="submit">Sign In</button>
+
           </form>
+         
       </div>
     </div>  
   )

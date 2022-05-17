@@ -21,20 +21,18 @@ function PhysicianLogin({ handleLogin }) {
           <h1>Patient Login</h1>
           <form className="sign-up-form" onSubmit={handleSubmit}>
             <span>
-                <label>Username:</label>
                 <input 
                     type="text"
                     name="username"
+                    placeholder="username"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                     required
                 />
-            </span>
-            <span>
-                <label>Password:</label>
                 <input 
                     type="password"
                     name="password"
+                    placeholder="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     required

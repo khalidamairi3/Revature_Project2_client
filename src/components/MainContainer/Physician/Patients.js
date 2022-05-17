@@ -1,7 +1,7 @@
 import React from 'react';
 import './Patients.css';
 
-function Patients() {
+function Patients({ userData, token }) {
   return (
     <div className="div-container">
           <h1>Patient Registry</h1>

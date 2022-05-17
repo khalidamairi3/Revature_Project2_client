@@ -1,13 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewAppointment from './NewAppointment';
+import AppointmentInfo from './AppointmentInfo';
 import './Appointments.css';
 
 function Appointments() {
   const [showNewForm, setShowNewForm] = useState(false);
+  const [appointments, setAppointments] = useState([]);
+
+  // fetch only appointments with patient ID
+   useEffect(() => {
+    fetch(`http://localhost:8080/appointment/patient/1`)
+    .then(r => r.json())
+    .then(appointments => {
+        setAppointments(appointments);
+        // console.log(appointments);
+    })
+  }, [])
+
+  // fetch ALL appointments
+  // useEffect(() => {
+  //   fetch(`http://localhost:8080/appointment/all`)
+  //   .then(r => r.json())
+  //   .then(appointments => {
+  //       setAppointments(appointments);
+  //       console.log(appointments);
+  //   })
+  // }, [])
 
   const handleShowNewForm = () => {
     setShowNewForm(!showNewForm);
   }
+
+  const appointmentInfo = appointments.map(appointment => {
+    return <AppointmentInfo key={appointment.id} appointment={appointment} />
+  })
 
   return (
     <div className="div-container">
@@ -29,56 +55,7 @@ function Appointments() {
                         <th className="appointments-header">Status</th>    
                         <th className="appointments-header">Action</th>
                     </tr>
-                    <tr className="appointment-info">
-                      <td>2022-05-16</td>
-                      <td>1:30 PM</td>
-                      <td>Dr. Dumbledore</td>
-                      <td>Pending</td>
-                      <td>
-                        <button className="edit-btn">Edit</button>
-                        <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                      </td>
-                    </tr>
-                    <tr className="appointment-info">
-                      <td>2022-05-05</td>
-                      <td>2:30 PM</td>
-                      <td>Dr. Snape</td>
-                      <td>Pending</td>
-                      <td>
-                        <button className="edit-btn">Edit</button>
-                        <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                      </td>
-                    </tr>
-                    <tr className="appointment-info">
-                      <td>2022-05-02</td>
-                      <td>12:45 PM</td>
-                      <td>Dr. Dumbledore</td>
-                      <td>Approved</td>
-                      <td>
-                        <button className="edit-btn">Edit</button>
-                        <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                      </td>
-                    </tr>
-                    <tr className="appointment-info">
-                      <td>2022-04-17</td>
-                      <td>9:30 AM</td>
-                      <td>Dr. McGonagall</td>
-                      <td>Approved</td>
-                      <td>
-                        <button className="edit-btn">Edit</button>
-                        <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                      </td>
-                    </tr>
-                    <tr className="appointment-info">
-                      <td>2022-04-12</td>
-                      <td>10:15 AM</td>
-                      <td>Dr. Trelawny</td>
-                      <td>Approved</td>
-                      <td>
-                        <button className="edit-btn">Edit</button>
-                        <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                      </td>
-                    </tr>
+                   {appointmentInfo}
                 </tbody>
             </table>
         </div>
@@ -87,4 +64,4 @@ function Appointments() {
   )
 }
 
-export default Appointments
+export default Appointments;

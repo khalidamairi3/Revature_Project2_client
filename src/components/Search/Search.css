@@ -1,0 +1,31 @@
+.search-div {
+    width: 100%;
+}
+.search-bar {
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px 0 5px 15px;
+}
+
+.search {
+    background: transparent;
+    border: none;
+    font-size: 0.9em;
+    color: rgb(65, 65, 65);
+    width: 500px;
+}
+
+.search- {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  width: 200px;
+}
+
+.search input {
+    width: 500px;
+}
+
+.search textarea:focus, input:focus{
+  outline: none; 
+}

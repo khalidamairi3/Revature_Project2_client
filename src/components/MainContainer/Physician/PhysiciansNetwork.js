@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Search from '../../Search/SearchSpecialty';
-import PhysicianInfo from './PhysicianInfo';
+import PhysicianRow from './PhysicianRow';
 import '../../Search/Search.css';
 
 function Physicians() {
@@ -21,12 +21,12 @@ function Physicians() {
 
 
     const physicianInfo = filterPhysicians.map(physician => {
-        return <PhysicianInfo key={physician.id} physician={physician} />
+        return <PhysicianRow key={physician.id} physician={physician} />
     })
 
   return (
     <div className="div-container">
-        <h1>Physician Registry</h1>
+        <h1>Physician Network</h1>
         <div className="search-div">
             <Search search={search} onSearchChange={setSearch}/>
         </div>
@@ -37,6 +37,7 @@ function Physicians() {
                         <th className="patients-header">First Name</th>
                         <th className="patients-header">Last Name</th>
                         <th className="patients-header">Specialty</th>    
+                        <th className="patients-header">Contact</th>    
                     </tr>
                     {physicianInfo}
                 </tbody>

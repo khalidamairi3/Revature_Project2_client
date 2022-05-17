@@ -6,16 +6,18 @@ import About from './Patient/About';
 import Appointments from './Patient/Appointments';
 import NewAppointment from './Patient/NewAppointment';
 import Physicians from './Patient/Physicians';
+import PhysiciansNetwork from './Physician/PhysiciansNetwork';
 import Chat from './Patient/Chat';
 import SignIn from './Patient/SignIn';
 import Register from './Patient/Register';
 import PhysicianLogin from './Physician/PhysicianLogin';
+import PhysicianProfile from './Physician/PhysicianProfile';
 import PhysicianChat from './Physician/PhysicianChat';
 import PhysicianAppointments from './Physician/PhysicianAppointments';
 import Patients from './Physician/Patients';
 // import SearchDiseases from './Patient/SearchDiseases';
 
-function Main({ handleLogin, handlePhysicianLogin }) {
+function Main({ handleLogin, handlePhysicianLogin, userData, setUserData, token, setToken }) {
   return (
     <div className="main-container">
         <Routes>
@@ -23,16 +25,18 @@ function Main({ handleLogin, handlePhysicianLogin }) {
             <Route exact path="/about" element={<About />} />
             <Route exact path="/appointments" element={<Appointments />} />
             <Route exact path="/new-appointment" element={<NewAppointment />} />
-            <Route exact path="/chat" element={<Chat />} />
+            <Route exact path="/chat" element={<Chat userData={userData} token={token}/>} />
             <Route exact path="/physicians-list" element={<Physicians />} />
             {/* <Route exact path="/search-medical-conditions" element={<SearchDiseases />} /> */}
             <Route exact path="/signin" element={<SignIn handleLogin={handleLogin} />} />
             <Route exact path="/register" element={<Register handleLogin={handleLogin}/>} />
 
-            <Route exact path="/provider-login" element={<PhysicianLogin handlePhysicianLogin={handlePhysicianLogin} />} />
-            <Route exact path="/patients" element={<Patients />} />
-            <Route exact path="/provider-chat" element={<PhysicianChat />} />
-            <Route exact path="/provider-appointments" element={<PhysicianAppointments />} />
+            <Route exact path="/provider-login" element={<PhysicianLogin userData={userData} setUserData={setUserData} token={token} setToken={setToken} handlePhysicianLogin={handlePhysicianLogin} />} />
+            <Route exact path="/provider-profile" element={<PhysicianProfile userData={userData} token={token} />} />
+            <Route exact path="/physicians-network" element={<PhysiciansNetwork />} />
+            <Route exact path="/patients" element={<Patients userData={userData} token={token} />} />
+            <Route exact path="/provider-chat" element={<PhysicianChat userData={userData} token={token} />} />
+            <Route exact path="/provider-appointments" element={<PhysicianAppointments userData={userData} token={token}/>} />
         </Routes>
     </div>
   )

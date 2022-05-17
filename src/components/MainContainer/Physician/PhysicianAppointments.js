@@ -1,35 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewAppointment from '../Patient/NewAppointment';
-import ConsultNote from './ConsultNote';
+import DrAppointmentInfo from './DrAppointmentInfo';
 import '../Patient/Appointments.css';
 import './PhysicianAppointments.css';
+import axios from 'axios';
 
-function PhysicianAppointments() {
+
+function PhysicianAppointments({ userData, token }) {
   const [showNewForm, setShowNewForm] = useState(false);
-  const [showConsultNote, setShowConsultNote] = useState(false);
+  const [appointments, setAppointments] = useState([]);
+  // const [search, setSearch] = useState("");
+
+  const id = userData.id
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/appointment/doctor/1`, {headers: {"Authorization": `Bearer ${token}`} })
+    .then(res => {
+      setAppointments(res.data)
+    })
+  }, [])
+
+
+  // const filterAppointments = appointments.filter(appointment => {
+  //   return appointment.specialization.toLowerCase().includes(search.toLowerCase())
+  // });
 
   const handleShowNewForm = () => {
     setShowNewForm(!showNewForm);
   }
 
-  const handleConsultNote = () => {
-    setShowConsultNote(!showConsultNote)
+  const onAddAppointment = (newAppointment) => {
+    setAppointments([...appointments, newAppointment])
   }
+
+
+  const appointmentInfo = appointments.map(appointment => {
+      return <DrAppointmentInfo key={appointment.id} appointment={appointment} />
+  })
 
     return (
         <div className="div-container">
           <h1>Virtual Care Visits</h1>
           <button className="new-app-btn" onClick={handleShowNewForm}>New Appointment</button>
           <div>
-            { showNewForm ? <NewAppointment /> : null }
+            { showNewForm ? <NewAppointment token={token} onAddAppointment={onAddAppointment} /> : null }
           </div>
           <br/>
 
-          { showConsultNote ? 
-            <div className="consult-note-container">
-              <ConsultNote closeModal={handleConsultNote} /> 
-            </div>
-          : null }
+
           
           <div className="appointments-div">
                 <table className="appointments-table">
@@ -42,61 +60,7 @@ function PhysicianAppointments() {
                             <th className="appointments-header">Note</th>    
                             <th className="appointments-header">Action</th>
                         </tr>
-                        <tr className="appointment-info">
-                          <td>2022-05-16</td>
-                          <td>1:30 PM</td>
-                          <td>Harry Potter</td>
-                          <td>Pending</td>
-                          <td><button onClick={handleConsultNote}>Consult Note</button></td>
-                          <td>
-                            <button className="edit-btn">Edit</button>
-                            <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                          </td>
-                        </tr>
-                        <tr className="appointment-info">
-                          <td>2022-05-05</td>
-                          <td>2:30 PM</td>
-                          <td>Hermione Granger</td>
-                          <td>Pending</td>
-                          <td><button>Consult Note</button></td>
-                          <td>
-                            <button className="edit-btn">Edit</button>
-                            <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                          </td>
-                        </tr>
-                        <tr className="appointment-info">
-                          <td>2022-05-02</td>
-                          <td>12:45 PM</td>
-                          <td>Ron Weasley</td>
-                          <td>Approved</td>
-                          <td><button>Consult Note</button></td>
-                          <td>
-                            <button className="edit-btn">Edit</button>
-                            <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                          </td>
-                        </tr>
-                        <tr className="appointment-info">
-                          <td>2022-04-17</td>
-                          <td>9:30 AM</td>
-                          <td>Luna Lovegood</td>
-                          <td>Approved</td>
-                          <td><button>Consult Note</button></td>
-                          <td>
-                            <button className="edit-btn">Edit</button>
-                            <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                          </td>
-                        </tr>
-                        <tr className="appointment-info">
-                          <td>2022-04-12</td>
-                          <td>10:15 AM</td>
-                          <td>Hermione Granger</td>
-                          <td>Approved</td>
-                          <td><button>Consult Note</button></td>
-                          <td>
-                            <button className="edit-btn">Edit</button>
-                            <button className="edit-btn"><i className="fa-solid fa-trash-can"></i></button>
-                          </td>
-                        </tr>
+                        {appointmentInfo}
                     </tbody>
                 </table>
             </div>

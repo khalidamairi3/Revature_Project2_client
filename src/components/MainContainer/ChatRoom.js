@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 import './ChatRoom.css';
 
 var stompClient = null;
-function ChatRoom({ closeModal }) {
+function ChatRoom({ closeModal, userInfo, token }) {
     const [privateChats, setPrivateChats] = useState(new Map());     
     const [publicChats, setPublicChats] = useState([]); 
     const [tab, setTab] = useState("CHATROOM");
@@ -15,6 +15,7 @@ function ChatRoom({ closeModal }) {
         connected: false,
         message: ""
     });
+    const username = userInfo.username;
 
     const scrollRef = useRef();
 
@@ -32,7 +33,8 @@ function ChatRoom({ closeModal }) {
 
     const connect = (e) => {
         e.preventDefault();
-        let Sock = new SockJS('http://localhost:8080/ws');
+        setUserData({...userData, "username": username});
+        let Sock = new SockJS('http://localhost:9090/ws');
         stompClient = over(Sock);
         stompClient.connect({},onConnected, onError);
     }
@@ -139,6 +141,10 @@ function ChatRoom({ closeModal }) {
         setUserData({...userData,"username": value});
     }
 
+    // const handleUsername = () = {
+    //     setUserData({...userData, "username": username})
+    // }
+
     return (
         <div className="chat-room-container">
             <div className="chat-room-div">
@@ -234,7 +240,7 @@ function ChatRoom({ closeModal }) {
                 :
                 <div className="register"> 
                     <form onSubmit={connect}>
-                        <input
+                        {/* <input
                             id= "user-name"
                             className="username-input"
                             type="text"
@@ -244,7 +250,7 @@ function ChatRoom({ closeModal }) {
                             onChange={handleUsername}
                             onKeyPress={handleKeypress}
                             required
-                        />
+                        /> */}
                         <button type="submit">Connect</button>
                     </form>
                 </div>
