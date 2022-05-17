@@ -1,0 +1,20 @@
+import React from 'react';
+import './Profile.css'
+
+function PatientProfile({ userData }) {
+
+  return (
+    <div className="div-container">
+      <h1>Welcome back, {userData.firstName} {userData.lastName}.</h1>
+      <div className="profile-div">
+        <p>First Name: {userData.firstName}</p>
+        <p>Last Name: {userData.lastName}</p>
+        <p>Date of Birth: {userData.dob}</p>
+        <p>Contact: {userData.phoneNum}</p>
+        {/* <p>Session token: <span className="token-span">{token}</span></p>  */}
+      </div>
+    </div>
+  )
+}
+
+export default PatientProfile;

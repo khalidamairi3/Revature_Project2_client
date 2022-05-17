@@ -27,12 +27,21 @@
     padding: 5px 10px;
 }
 
+.new-app-selector {
+    border: 1px solid rgb(201, 201, 201);
+    border-radius: 5px;
+    height: 25px;
+    margin-left: -10px;
+}
 .input-span ::placeholder {
     color: rgb(118, 118, 118);
     font-size: 0.9em;
     padding-left: 8px;
 }
 
+.input-span {
+    margin-left: 5px;
+}
 .input-wrapper {
     display:inline-block;
     position: relative

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import './SignIn.css';
 
-function PhysicianLogin({ handleLogin }) {
+function SignIn({ handleLogin, setUserData }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -11,9 +12,16 @@ function PhysicianLogin({ handleLogin }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    axios.get(`http://localhost:8080/patient/1`)
+    .then(res => {
+      setUserData(res.data)
+    })
+    
     handleLogin();
     navigate('/');
   }
+
 
   return (
     <div className="login-div">
@@ -47,4 +55,4 @@ function PhysicianLogin({ handleLogin }) {
   )
 }
 
-export default PhysicianLogin;
+export default SignIn;

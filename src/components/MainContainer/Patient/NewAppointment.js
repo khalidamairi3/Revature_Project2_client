@@ -60,11 +60,20 @@ function NewAppointment({ token, onAddAppointment }) {
         <div className="new-app-form">
             <form onSubmit={handleSubmit}>
                 <span className="new-app-span">
-                    <label>Patient Name:</label>
+                    <label>Patient:</label>
                     <span className="input-span">
                         <input 
                             className="new-app-input"
-                            placeholder="Patient Last Name"
+                            placeholder="First Name"
+                            type="text"
+                            name="name"
+                            required
+                        />
+                    </span>
+                    <span className="input-span">
+                        <input 
+                            className="new-app-input"
+                            placeholder="Last Name"
                             type="text"
                             name="name"
                             value={patient}
@@ -72,13 +81,38 @@ function NewAppointment({ token, onAddAppointment }) {
                             required
                         />
                     </span>
-                </span>
-                <span className="new-app-span">
-                    <label>Physician Name:</label>
                     <span className="input-span">
                         <input 
                             className="new-app-input"
-                            placeholder="Physician Last Name"
+                            placeholder="DOB (MM-DD-YYYY)"
+                            type="text"
+                            name="name"
+                            required
+                        />
+                    </span>
+                <span className="new-app-span">
+                    <label>Dr.</label>
+                    <span className="input-span">
+                        {/* <select 
+                            className="new-app-selector" 
+                            name="name" 
+                            value={physician} 
+                            onChange={e =>  setPhysician(e.target.value)}
+                            required
+                        >
+                            <option value="dumbledore">Dumbledore</option>
+                            <option value="hagrid">Hagrid</option>
+                            <option value="flitwick">Flitwick</option>
+                            <option value="lupin">Lupin</option>
+                            <option value="mcgonagall">McGonagall</option>
+                            <option value="slughorn">Slughorn</option>
+                            <option value="snape">Snape</option>
+                            <option value="sprout">Sprout</option>
+                            <option value="trelawney">Trelawney</option>
+                        </select> */}
+                        <input 
+                            className="new-app-input"
+                            placeholder="Last Name"
                             type="text"
                             name="name"
                             value={physician}
@@ -95,7 +129,7 @@ function NewAppointment({ token, onAddAppointment }) {
                                 type="text" 
                                 className="new-app-input"
                                 name="name"
-                                placeholder="YYYY-MM-DD"
+                                placeholder="MM-DD-YYYY"
                                 value={day}
                                 onChange={day}
                                 onClick={handleCalendar}
@@ -130,7 +164,7 @@ function NewAppointment({ token, onAddAppointment }) {
                         onChange={e => setTime(e.format('LT'))}
                     />
                 </span>
-
+                </span>
                 <button className="new-app-submit-btn" onClick={handleSubmit} type="submit">Submit</button>
             </form>
           </div>

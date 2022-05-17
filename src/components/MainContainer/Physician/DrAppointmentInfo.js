@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ConsultNote from './ConsultNote';
 import axios from 'axios';
 
-function DrAppointmentInfo({ appointment }) {
+function DrAppointmentInfo({ appointment, handleDeleted }) {
     const [showConsultNote, setShowConsultNote] = useState(false);
     const id = appointment.id;
 
@@ -11,7 +11,8 @@ function DrAppointmentInfo({ appointment }) {
     }
 
     const onDelete = () => {
-        axios.delete(`http://localhost:8080/appointment/request/${id}`);
+        axios.delete(`http://localhost:8080/appointment/request/${id}`)
+        .then(handleDeleted(id));
     }
 
   return (

@@ -3,7 +3,7 @@ import NewAppointment from './NewAppointment';
 import AppointmentInfo from './AppointmentInfo';
 import './Appointments.css';
 
-function Appointments() {
+function Appointments({ userData }) {
   const [showNewForm, setShowNewForm] = useState(false);
   const [appointments, setAppointments] = useState([]);
 

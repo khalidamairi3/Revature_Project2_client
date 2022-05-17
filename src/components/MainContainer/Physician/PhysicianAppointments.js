@@ -4,12 +4,13 @@ import DrAppointmentInfo from './DrAppointmentInfo';
 import '../Patient/Appointments.css';
 import './PhysicianAppointments.css';
 import axios from 'axios';
+import Search from '../../Search/SearchPatient';
 
 
 function PhysicianAppointments({ userData, token }) {
   const [showNewForm, setShowNewForm] = useState(false);
   const [appointments, setAppointments] = useState([]);
-  // const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
 
   const id = userData.id
 
@@ -20,10 +21,9 @@ function PhysicianAppointments({ userData, token }) {
     })
   }, [])
 
-
-  // const filterAppointments = appointments.filter(appointment => {
-  //   return appointment.specialization.toLowerCase().includes(search.toLowerCase())
-  // });
+  const filterAppointments = appointments.filter(appointment => {
+    return appointment.patient.lastName.toLowerCase().includes(search.toLowerCase());
+  })
 
   const handleShowNewForm = () => {
     setShowNewForm(!showNewForm);
@@ -33,9 +33,14 @@ function PhysicianAppointments({ userData, token }) {
     setAppointments([...appointments, newAppointment])
   }
 
+  const handleDeleted = (id) => {
+    setAppointments(appointments.filter(appointment => {
+      return appointment.id !== id
+    }))
+  }
 
-  const appointmentInfo = appointments.map(appointment => {
-      return <DrAppointmentInfo key={appointment.id} appointment={appointment} />
+  const appointmentInfo = filterAppointments.map(appointment => {
+      return <DrAppointmentInfo key={appointment.id} appointment={appointment} handleDeleted={handleDeleted} />
   })
 
     return (
@@ -46,10 +51,11 @@ function PhysicianAppointments({ userData, token }) {
             { showNewForm ? <NewAppointment token={token} onAddAppointment={onAddAppointment} /> : null }
           </div>
           <br/>
-
-
-          
+ 
           <div className="appointments-div">
+            <div className="search-pt-div">
+              <Search search={search} onSearchChange={setSearch}/>
+            </div>
                 <table className="appointments-table">
                     <tbody>
                         <tr>

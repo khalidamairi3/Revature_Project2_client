@@ -14,8 +14,8 @@ function Patients({ userData, token }) {
             placeholder="  search..."
             // value={search}
             // onChange={(e) => onSearchChange(e.target.value)}
-          />
-      <span className="search-icon"> <i className="fas fa-search"></i></span>
+          /> 
+            {/* <span className="search-icon"> <i className="fas fa-search"></i></span> */}
             </div>
           <div className="patients-div">
                 <table className="patients-table">

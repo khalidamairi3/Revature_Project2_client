@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './ConsultNote.css';
 
 function ConsultNote({ note, closeModal }) {
-  // const [note, setNote] = useState("");
+  const [newNote, setNewNote] = useState("");
 
   function handleSubmit(e) {
       e.preventDefault()
@@ -26,7 +26,12 @@ function ConsultNote({ note, closeModal }) {
           { note ? note : "No consult note has been submitted yet." }
         </p>
         <form onSubmit={handleSubmit}>
-            <textarea class="consult-textarea" placeholder="Type your consult note here."></textarea>
+            <textarea 
+              className="consult-textarea" 
+              placeholder="Type your consult note here."
+              value={newNote}
+              onChange={e => setNewNote(e.target.value)} 
+            ></textarea>
             <br/>
             <button className="consult-save-btn" type="submit">Save</button>
         </form>
