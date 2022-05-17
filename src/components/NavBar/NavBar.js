@@ -92,12 +92,21 @@ function NavBar({ loggedIn, handleLogout, isPhysician }) {
             <div className="right">
                 { loggedIn ? 
                     <ul>
-                        <NavLink to="/provider-profile">
-                            <li className="nav-item">
-                                <i className="fa-solid fa-user"></i> 
-                                <span className="text">Profile</span>
-                            </li>
-                        </NavLink>
+                        { isPhysician ? 
+                            <NavLink to="/provider-profile">
+                                <li className="nav-item">
+                                    <i className="fa-solid fa-user"></i> 
+                                    <span className="text">Profile</span>
+                                </li>
+                            </NavLink> :
+                             <NavLink to="/patient-profile">
+                             <li className="nav-item">
+                                 <i className="fa-solid fa-user"></i> 
+                                 <span className="text">Profile</span>
+                             </li>
+                         </NavLink>
+                        }
+                       
                         <NavLink to="/">
                             <li className="nav-item">
                                 <i className="fa-solid fa-arrow-right-from-bracket"></i>

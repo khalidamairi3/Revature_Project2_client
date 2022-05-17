@@ -1,7 +1,7 @@
 import React from 'react';
-import './Profile.css'
+import '../Physician/Profile.css'
 
-function PatientProfile({ userData }) {
+function PatientProfile({ userData, token }) {
 
   return (
     <div className="div-container">
@@ -11,7 +11,7 @@ function PatientProfile({ userData }) {
         <p>Last Name: {userData.lastName}</p>
         <p>Date of Birth: {userData.dob}</p>
         <p>Contact: {userData.phoneNum}</p>
-        {/* <p>Session token: <span className="token-span">{token}</span></p>  */}
+        <p>Session token: <span className="token-span">{token}</span></p> 
       </div>
     </div>
   )

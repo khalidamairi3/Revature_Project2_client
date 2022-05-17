@@ -2,37 +2,44 @@ import React, { useState, useEffect } from 'react';
 import NewAppointment from './NewAppointment';
 import AppointmentInfo from './AppointmentInfo';
 import './Appointments.css';
+import axios from 'axios';
+import Search from '../../Search/SearchPhysician';
 
-function Appointments({ userData }) {
+function Appointments({ userData, token }) {
   const [showNewForm, setShowNewForm] = useState(false);
   const [appointments, setAppointments] = useState([]);
 
-  // fetch only appointments with patient ID
-   useEffect(() => {
-    fetch(`http://localhost:8080/appointment/patient/1`)
-    .then(r => r.json())
-    .then(appointments => {
-        setAppointments(appointments);
-        // console.log(appointments);
+  const [search, setSearch] = useState("");
+
+  const id = userData.id
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/appointment/patient/${id}`, {headers: {"Authorization": `Bearer ${token}`} })
+    .then(res => {
+      setAppointments(res.data)
     })
   }, [])
 
-  // fetch ALL appointments
-  // useEffect(() => {
-  //   fetch(`http://localhost:8080/appointment/all`)
-  //   .then(r => r.json())
-  //   .then(appointments => {
-  //       setAppointments(appointments);
-  //       console.log(appointments);
-  //   })
-  // }, [])
+  const filterAppointments = appointments.filter(appointment => {
+    return appointment.doctor.lastName.toLowerCase().includes(search.toLowerCase());
+  })
 
   const handleShowNewForm = () => {
     setShowNewForm(!showNewForm);
   }
 
-  const appointmentInfo = appointments.map(appointment => {
-    return <AppointmentInfo key={appointment.id} appointment={appointment} />
+  const onAddAppointment = (newAppointment) => {
+    setAppointments([...appointments, newAppointment])
+  }
+
+  const handleDeleted = (id) => {
+    setAppointments(appointments.filter(appointment => {
+      return appointment.id !== id
+    }))
+  }
+
+  const appointmentInfo = filterAppointments.map(appointment => {
+    return <AppointmentInfo key={appointment.id} appointment={appointment} handleDeleted={handleDeleted} />
   })
 
   return (
@@ -41,8 +48,11 @@ function Appointments({ userData }) {
       <p>An appointment is recommended to guarantee your choice of physician.</p>
       <button className="new-app-btn" onClick={handleShowNewForm}>New Appointment</button>
       <div>
-        { showNewForm ? <NewAppointment /> : null }
+      { showNewForm ? <NewAppointment token={token} onAddAppointment={onAddAppointment} /> : null }
       </div>
+      <div className="search-dr-div">
+              <Search search={search} onSearchChange={setSearch}/>
+            </div>
       <br/>
       <div className="appointments-div">
         

@@ -4,7 +4,7 @@ import '../Patient/SignIn.css';
 import axios from 'axios';
 
 
-function PhysicianLogin({ handlePhysicianLogin, userData, setUserData, token, setToken }) {
+function PhysicianLogin({ handlePhysicianLogin, setUserData, setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [invalid, setInvalid] = useState(false);

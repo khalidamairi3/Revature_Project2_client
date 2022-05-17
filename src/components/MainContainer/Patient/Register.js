@@ -1,39 +1,47 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Register.css';
+import axios from 'axios';
 
-function Register({ handledLogin }) {
+function Register({ handleLogin }) {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [username, setUsername] = useState("")
+    const [dob, setDob] = useState("")
     const [phone, setPhone] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    // const [success, setSuccess] = useState(false);
+
+    const navigate = useNavigate();
+    
 
     function handleSubmit(e){
         e.preventDefault();
-        handledLogin();
-        // const formData = {
-        //     firstName,
-        //     lastName,
-        //     username,
-        //     password,
-        //     phone,
-        // }
+        const formData = {
+            "username": username,
+            "password": password,
+            "firstName": firstName,
+            "lastName": lastName,
+            "dob": dob,
+            "phoneNum": phone
+        }
 
-        // if (password !== confirmPassword){
-        //     alert("Password do no match")
-        // } else {
-        //     fetch(`${process.env.REACT_APP_API_BASE_URL}users/`, {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type":"application/json"
-        //         },
-        //         body: JSON.stringify(formData)
-        //     })
-        //     .then(r => r.json())
-        //     // .then(handleNewUser)
-        // }
+        axios({
+            method: 'post',
+            url: 'patient/register',
+            data: formData,
+            headers: {"Content-Type": "application/json"}
+         })
+           .then(function (response) {
+             console.log(response);
+             navigate('/signin');
+           })
+           .catch(function (response) {
+             console.log(response);
+           });
+
+
     }
 
     return (
@@ -46,7 +54,7 @@ function Register({ handledLogin }) {
                         className="form-input"
                         type="text"
                         name="firstName"
-                        placeholder="first Name"
+                        placeholder="first name"
                         value={firstName}
                         onChange={e => setFirstName(e.target.value)}
                         required
@@ -54,7 +62,7 @@ function Register({ handledLogin }) {
                     <input 
                         type="text"
                         name="lastName"
-                        placeholder="last Name"
+                        placeholder="last name"
                         value={lastName}
                         onChange={e => setLastName(e.target.value)}
                         required
@@ -86,7 +94,15 @@ function Register({ handledLogin }) {
                     <input 
                         type="text"
                         name="phone"
-                        placeholder="phone number"
+                        placeholder="date of birth (MM-DD-YYYY)"
+                        value={dob}
+                        onChange={e => setDob(e.target.value)}
+                        required
+                    />
+                    <input 
+                        type="text"
+                        name="phone"
+                        placeholder="phone number (xxx) xxx-xxxx"
                         value={phone}
                         onChange={e => setPhone(e.target.value)}
                         required

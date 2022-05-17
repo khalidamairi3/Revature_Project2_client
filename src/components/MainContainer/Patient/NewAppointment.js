@@ -29,7 +29,7 @@ function NewAppointment({ token, onAddAppointment }) {
             "ptLastName": patient,
             "date": day,
             "time": time
-          }
+        }
       
           axios({
             method: 'post',

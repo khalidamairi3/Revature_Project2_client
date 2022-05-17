@@ -4,24 +4,37 @@ import axios from 'axios';
 
 import './SignIn.css';
 
-function SignIn({ handleLogin, setUserData }) {
+function SignIn({ handleLogin, setUserData, setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [invalid, setInvalid] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.get(`http://localhost:8080/patient/1`)
-    .then(res => {
-      setUserData(res.data)
-    })
-    
-    handleLogin();
-    navigate('/');
-  }
+    const formData = {
+      username: username,
+      password: password
+    }
 
+    axios.post(`patient/login`, formData)
+      .then(res => {
+        console.log(res);
+        console.log(res.data)
+        setUserData(res.data)
+        setToken(res.headers.token)
+        console.log(res.headers.token)
+        localStorage.setItem('token', res.data.token);  
+        handleLogin();
+        navigate('/patient-profile');
+      })
+      .catch(err => {
+        console.log(err);
+        setInvalid(true);
+      })
+  }
 
   return (
     <div className="login-div">
@@ -46,8 +59,11 @@ function SignIn({ handleLogin, setUserData }) {
                     required
                 />
             </span>
+            { invalid ?
+              <span className="err-msg">Username or Password is incorrect.</span> 
+            : null }
             <br/>
-            <button className="sign-in-btn" onClick={handleSubmit} type="submit">Sign In</button>
+            <button className="sign-in-btn" type="submit">Sign In</button>
             <p className="small-font">Don't have an account? <NavLink exact to="/register"><span className="text-link">Register here</span></NavLink>.</p>
           </form>
       </div>
