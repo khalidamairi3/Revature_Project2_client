@@ -3,7 +3,7 @@ import React from "react";
 function SearchPatient({ search, onSearchChange }) {
 
   return (
-    <div className="search-bar">
+    <div className="search-div">
       <input
         className="search"
         type="text"
@@ -13,7 +13,7 @@ function SearchPatient({ search, onSearchChange }) {
         value={search}
         onChange={(e) => onSearchChange(e.target.value)}
       />
-      {/* <span className="search-icon"> <i className="fas fa-search"></i></span> */}
+      <span className="search-icon"> <i className="fas fa-search"></i></span>
     </div>
     
   );

@@ -1,31 +1,26 @@
 .search-div {
-    width: 100%;
-}
-.search-bar {
-    width: 100vw;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 5px 0 5px 15px;
-}
-
-.search {
-    background: transparent;
-    border: none;
-    font-size: 0.9em;
-    color: rgb(65, 65, 65);
-    width: 500px;
+  border: 1px solid rgb(147, 147, 147);
+  border-radius: 10px;
+  width: 20vw;
+  text-align: left;
+  margin-left: 70px;
 }
 
 .search- {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
-  width: 200px;
 }
 
-.search input {
-    width: 500px;
+.search-icon {
+  padding-left: 10px;
+}
+
+.search {
+  padding-left: 10px;
+  width:80%;
 }
 
 .search textarea:focus, input:focus{
   outline: none; 
 }
+

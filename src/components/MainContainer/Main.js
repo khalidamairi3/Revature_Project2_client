@@ -3,8 +3,9 @@ import { Route, Routes } from 'react-router-dom';
 
 import Home from './Home';
 import About from './Patient/About';
-import Appointments from './Patient/Appointments';
-import NewAppointment from './Patient/NewAppointment';
+import Appointments from './Appointment/Appointments';
+import NewAppointment from './Appointment/NewAppointment';
+import AppSubmited from './Appointment/AppointmentSubmited';
 import Physicians from './Patient/Physicians';
 import PhysiciansNetwork from './Physician/PhysiciansNetwork';
 import Chat from './Patient/Chat';
@@ -35,10 +36,12 @@ function Main({ handleLogin, handlePhysicianLogin, userData, setUserData, token,
 
             <Route exact path="/provider-login" element={<PhysicianLogin userData={userData} setUserData={setUserData} token={token} setToken={setToken} handlePhysicianLogin={handlePhysicianLogin} />} />
             <Route exact path="/provider-profile" element={<PhysicianProfile userData={userData} token={token} />} />
-            <Route exact path="/physicians-network" element={<PhysiciansNetwork />} />
+            <Route exact path="/physicians-network" element={<PhysiciansNetwork token={token} />} />
             <Route exact path="/patients" element={<Patients userData={userData} token={token} />} />
             <Route exact path="/provider-chat" element={<PhysicianChat userData={userData} token={token} />} />
             <Route exact path="/provider-appointments" element={<PhysicianAppointments userData={userData} token={token}/>} />
+            <Route exact path="/appointment-scheduled" element={<AppSubmited userData={userData} token={token}/>} />
+            
         </Routes>
     </div>
   )

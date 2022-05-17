@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './ConsultNote.css';
 import axios from 'axios';
 
-function ConsultNote({ id, note, closeModal }) {
-  const [newNote, setNewNote] = useState("");
+function ConsultNote({ id, note, handleNewNote, closeModal }) {
+  const [newNote, setNewNote] = useState();
 
   function handleSubmit(e) {
       e.preventDefault();
@@ -13,6 +13,7 @@ function ConsultNote({ id, note, closeModal }) {
       }
 
       axios.put(`appointment/${id}/note`, appNote);
+      handleNewNote(newNote);
   } 
 
   return (
@@ -26,7 +27,7 @@ function ConsultNote({ id, note, closeModal }) {
             <form onSubmit={handleSubmit}>
                   <textarea 
                     className="consult-textarea" 
-                    placeholder={note}
+                    placeholder={newNote}
                     value={newNote}
                     onChange={e => setNewNote(e.target.value)} 
                   ></textarea>

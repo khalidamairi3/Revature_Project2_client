@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import NewAppointment from '../Patient/NewAppointment';
+import NewAppointment from '../Appointment/NewAppointment';
 import DrAppointmentInfo from './DrAppointmentInfo';
-import '../Patient/Appointments.css';
+import '../Appointment/Appointments.css';
 import './PhysicianAppointments.css';
 import axios from 'axios';
 import Search from '../../Search/SearchPatient';
@@ -29,10 +29,6 @@ function PhysicianAppointments({ userData, token }) {
     setShowNewForm(!showNewForm);
   }
 
-  const onAddAppointment = (newAppointment) => {
-    setAppointments([...appointments, newAppointment])
-  }
-
   const handleDeleted = (id) => {
     setAppointments(appointments.filter(appointment => {
       return appointment.id !== id
@@ -46,23 +42,25 @@ function PhysicianAppointments({ userData, token }) {
     return (
         <div className="div-container">
           <h1>Virtual Care Visits</h1>
-          <button className="new-app-btn" onClick={handleShowNewForm}>New Appointment</button>
+          <div className="upper-cont">
+            <button className="new-app-btn" onClick={handleShowNewForm}>New Appointment</button>
+            <span className="search-span"><Search search={search} onSearchChange={setSearch}/></span>
+          </div>
+         
+          
           <div>
-            { showNewForm ? <NewAppointment token={token} onAddAppointment={onAddAppointment} /> : null }
+            { showNewForm ? <NewAppointment token={token} /> : null }
           </div>
           <br/>
  
           <div className="appointments-div">
-            <div className="search-pt-div">
-              <Search search={search} onSearchChange={setSearch}/>
-            </div>
                 <table className="appointments-table">
                     <tbody>
                         <tr>
                             <th className="appointments-header">Date</th>
                             <th className="appointments-header">Time</th>
                             <th className="appointments-header">Patient</th>    
-                            <th className="appointments-header">Status</th>    
+                            <th className="appointments-header">Visit Status</th>    
                             <th className="appointments-header">Note</th>    
                             <th className="appointments-header">Action</th>
                         </tr>

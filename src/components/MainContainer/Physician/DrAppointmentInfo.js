@@ -5,13 +5,17 @@ import axios from 'axios';
 
 function DrAppointmentInfo({ appointment, handleDeleted, token }) {
     const [showConsultNote, setShowConsultNote] = useState(false);
-    // const [status, setStatus] = useState(appointment.status)
-    // const [confirmed, setConfirmed] = useState(false);
+    const [note, setNote] = useState(appointment.note);
+    const [status, setStatus] = useState(appointment.status);
 
     const id = appointment.id;
 
     const handleConsultNote = () => {
         setShowConsultNote(!showConsultNote)
+    }
+
+    const handleNewNote = (newNote) => {
+        setNote(newNote);
     }
 
     const confirmApp = {
@@ -26,10 +30,18 @@ function DrAppointmentInfo({ appointment, handleDeleted, token }) {
 
     const handleConfirm = () => {
         axios.put(`http://localhost:8080/appointment/${id}/confirm`, confirmApp, {headers: {"Authorization": `Bearer ${token}`} })
+        const appObj = {
+            status: "Confirmed"
+        }
+        setStatus("Confirmed")
     }
 
     const handleSeen = () => {
         axios.put(`http://localhost:8080/appointment/${id}/seen`, updateSeen, {headers: {"Authorization": `Bearer ${token}`} })
+        const appObj = {
+            status: "Seen"
+        }
+        setStatus("Seen")
     }
 
     const onDelete = () => {
@@ -41,14 +53,14 @@ function DrAppointmentInfo({ appointment, handleDeleted, token }) {
     <>
         { showConsultNote ? 
             <div className="consult-note-container">
-            <ConsultNote id={id} note={appointment.note} closeModal={handleConsultNote} /> 
+                <ConsultNote id={id} note={note} handleNewNote={handleNewNote} closeModal={handleConsultNote} /> 
             </div>
         : null }
         <tr className="appointment-info">
             <td>{appointment.date}</td>
-            <td>{appointment.time}</td>
+            <td className="time-td">{appointment.time}</td>
             <td>{appointment.patient.firstName} {appointment.patient.lastName}</td>
-            <td>{appointment.status} </td>
+            <td>{status} </td>
             <td><button className="consult-btn" onClick={handleConsultNote}>Consult Note</button></td>
             <td>
                 <button className="status-btn" onClick={handleConfirm}>Confirm</button>

@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './NewAppointment.css';
 import TimePicker from "rc-time-picker";
 import 'rc-time-picker/assets/index.css';
-
-import { DayPicker } from 'react-day-picker';
+import { DayPicker } from 'react-day-picker'; 
 import 'react-day-picker/dist/style.css';
 import { format, set } from 'date-fns';
 
-function NewAppointment({ token, onAddAppointment }) {
+function NewAppointment({ token }) {
     const [physician, setPhysician] = useState("");
     const [patient, setPatient] = useState("");
+    const [ptFirstName, setPtFirstName] = useState("")
     const [time, setTime] = useState("");
     const [selected, setSelected] = useState();
     const [seeCalendar, setSeeCalendar] = useState(false);
+
+    const navigate = useNavigate();
 
     let day = "";
     let footer = <p>Please pick a day.</p>;
@@ -30,18 +33,16 @@ function NewAppointment({ token, onAddAppointment }) {
             "date": day,
             "time": time
         }
-      
+
         axios({
            method: 'post',
            url: 'appointment/request',
            data: formData,
            headers: {"Authorization": `Bearer ${token}` }
         })
-        // get appointment body back
-            // .then(r => r.json())
-            // .then(newAppointment => onAddAppointment(newAppointment))
           .then(function (response) {
             console.log(response);
+            navigate('/appointment-scheduled');
           })
           .catch(function (response) {
             console.log(response);
@@ -68,6 +69,8 @@ function NewAppointment({ token, onAddAppointment }) {
                             placeholder="First Name"
                             type="text"
                             name="name"
+                            value={ptFirstName}
+                            onChange={e => setPtFirstName(e.target.value)}
                             required
                         />
                     </span>

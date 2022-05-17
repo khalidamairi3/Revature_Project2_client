@@ -8,8 +8,13 @@ import Search from '../../Search/SearchPhysician';
 function Appointments({ userData, token }) {
   const [showNewForm, setShowNewForm] = useState(false);
   const [appointments, setAppointments] = useState([]);
-
   const [search, setSearch] = useState("");
+
+
+  const [patientName, setPatientName] = useState("");
+  const [physicianName, setPhysicianName] = useState("");
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
 
   const id = userData.id
 
@@ -28,8 +33,8 @@ function Appointments({ userData, token }) {
     setShowNewForm(!showNewForm);
   }
 
-  const onAddAppointment = (newAppointment) => {
-    setAppointments([...appointments, newAppointment])
+  const onAddAppointment = (physician, patient, ptFirstName, time, selected) => {
+    
   }
 
   const handleDeleted = (id) => {
@@ -48,11 +53,11 @@ function Appointments({ userData, token }) {
       <p>An appointment is recommended to guarantee your choice of physician.</p>
       <button className="new-app-btn" onClick={handleShowNewForm}>New Appointment</button>
       <div>
-      { showNewForm ? <NewAppointment token={token} onAddAppointment={onAddAppointment} /> : null }
+        { showNewForm ? <NewAppointment token={token} onAddAppointment={onAddAppointment} /> : null }
       </div>
-      <div className="search-dr-div">
-              <Search search={search} onSearchChange={setSearch}/>
-            </div>
+      <div>
+        <Search search={search} onSearchChange={setSearch}/>
+      </div>
       <br/>
       <div className="appointments-div">
         

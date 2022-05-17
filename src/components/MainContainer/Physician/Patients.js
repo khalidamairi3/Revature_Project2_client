@@ -1,22 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import PatientInfo from './PatientInfo';
 import './Patients.css';
+import Search from '../../Search/SearchPatient';
 
 function Patients({ userData, token }) {
+  const [patients, setPatients] = useState([]);
+  const [search, setSearch] = useState("");
+
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/doctor/getAllPatients`, {headers: {"Authorization": `Bearer ${token}`} })
+    .then(res => {
+      setPatients(res.data)
+    })
+  }, [])
+
+  const filterPatients = patients.filter(patient => {
+    return patient.lastName.toLowerCase().includes(search.toLowerCase());
+  })
+
+  const patientInfo = filterPatients.map(patient => {
+    return <PatientInfo key={patient.id} patient={patient} />
+  })
+
+
   return (
     <div className="div-container">
           <h1>Patient Registry</h1>
-          <div className="search-bar">
-          <input
-            className="search"
-            type="text"
-            autoComplete="off"
-            id="search"
-            placeholder="  search..."
-            // value={search}
-            // onChange={(e) => onSearchChange(e.target.value)}
-          /> 
-            {/* <span className="search-icon"> <i className="fas fa-search"></i></span> */}
-            </div>
+          <div>
+            <Search search={search} onSearchChange={setSearch}/>
+          </div>
           <div className="patients-div">
                 <table className="patients-table">
                     <tbody>
@@ -28,46 +42,7 @@ function Patients({ userData, token }) {
                             <th className="patients-header">DOB</th>    
                             <th className="patients-header">Phone Number</th>
                         </tr>
-                        <tr className="patient-info">
-                          <td>1</td>
-                          <td>hedwig</td>
-                          <td>Harry</td>
-                          <td>Potter</td>
-                          <td>1980/07/31</td>
-                          <td>123-123-1223</td>
-                        </tr>
-                        <tr className="patient-info">
-                          <td>2</td>
-                          <td>scabbers</td>
-                          <td>Ron</td>
-                          <td>Weasley</td>
-                          <td>1980/03/01</td>
-                          <td>234-234-2325</td>
-                        </tr>
-                        <tr className="patient-info">
-                          <td>3</td>
-                          <td>crookshanks</td>
-                          <td>Hermione</td>
-                          <td>Granger</td>
-                          <td>1979/09/19</td>
-                          <td>346-234-8624</td>
-                        </tr>
-                        <tr className="patient-info">
-                          <td>4</td>
-                          <td>squibbler</td>
-                          <td>Luna</td>
-                          <td>Lovegood</td>
-                          <td>1956/11/28</td>
-                          <td>574-423-8742</td>
-                        </tr>
-                        <tr className="patient-info">
-                          <td>5</td>
-                          <td>slytherin</td>
-                          <td>Draco</td>
-                          <td>Malfoy</td>
-                          <td>1934/04/02</td>
-                          <td>460-432-8324</td>
-                        </tr>
+                        {patientInfo}
                     </tbody>
                 </table>
             </div>
