@@ -1,7 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Physician/Profile.css'
 
 function PatientProfile({ userData, token }) {
+  const navigate = useNavigate();
+
+  const onEditProfile = () => {
+    navigate('/edit-profile');
+  }
 
   return (
     <div className="div-container">
@@ -13,7 +19,7 @@ function PatientProfile({ userData, token }) {
         <p>Contact: {userData.phoneNum}</p>
         <p>Session token: <span className="token-span">{token}</span></p> 
       </div>
-      <button>Edit Profile</button>
+      <button onClick={onEditProfile}>Edit Profile</button>
       <div className="edit-profile-div">
         
       </div>

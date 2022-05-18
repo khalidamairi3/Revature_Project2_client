@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import './Register.css';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { id } from 'date-fns/locale';
 
-function Register({ handleLogin }) {
+function EditProfile({ userData, token }) {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [username, setUsername] = useState("")
@@ -14,10 +14,28 @@ function Register({ handleLogin }) {
 
     const navigate = useNavigate();
 
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+  
+    //     const appNote = {
+    //       "note": newNote
+    //     }
+  
+    //     axios.put(`appointment/${id}/note`, appNote);
+    //     handleNewNote(newNote);
+    // } 
 
-    function handleSubmit(e){
+    // useEffect(() => {
+    //     axios.get(`http://localhost:8080/appointment/doctor/${id}`, {headers: {"Authorization": `Bearer ${token}`} })
+    //     .then(res => {
+    //       setAppointments(res.data)
+    //     })
+    //   }, [])
+    
+    const handleSubmit = (e) => {
         e.preventDefault();
         const formData = {
+            "id": id,
             "username": username,
             "password": password,
             "firstName": firstName,
@@ -26,32 +44,48 @@ function Register({ handleLogin }) {
             "phoneNum": phone
         }
 
-        axios({
-            method: 'post',
-            url: 'patient/register',
-            data: formData,
-            headers: {"Content-Type": "application/json"}
-         })
+        axios.put('patient/update', formData, {headers: {"Authorization": `Bearer ${token}`}})
            .then(function (response) {
              console.log(response);
-             navigate('/signin');
+             navigate('/patient-profile');
            })
            .catch(function (response) {
              console.log(response);
            });
+
+        // axios({
+        //     method: 'post',
+        //     url: 'patient/update',
+        //     data: formData,
+        //     headers: {"Content-Type": "application/json", "Authorization": `Bearer ${token}`}
+        //  })
+        //    .then(function (response) {
+        //      console.log(response);
+        //      navigate('/patient-profile');
+        //    })
+        //    .catch(function (response) {
+        //      console.log(response);
+        //    });
     }
 
-    return (
-        <div className="login-div">
+  return (
+    <div className="login-div">
             <div className="register-form-div">
-              <h1 className="new-patient">New Patient</h1> 
+              <h1 className="new-patient">Edit Profile</h1> 
               <div className="form-container">
                 <form className="register-form" onSubmit={handleSubmit}>
                     <input 
                         className="form-input"
                         type="text"
+                        name="id"
+                        value={userData.id}
+                        dsiabled
+                    />
+                    <input 
+                        className="form-input"
+                        type="text"
                         name="firstName"
-                        placeholder="first name"
+                        placeholder={userData.firstName}
                         value={firstName}
                         onChange={e => setFirstName(e.target.value)}
                         required
@@ -59,7 +93,7 @@ function Register({ handleLogin }) {
                     <input 
                         type="text"
                         name="lastName"
-                        placeholder="last name"
+                        placeholder={userData.lastName}
                         value={lastName}
                         onChange={e => setLastName(e.target.value)}
                         required
@@ -67,7 +101,7 @@ function Register({ handleLogin }) {
                     <input 
                         type="text"
                         name="username"
-                        placeholder="username"
+                        placeholder={userData.username}
                         value={username}
                         onChange={e => setUsername(e.target.value)}
                         required
@@ -75,7 +109,7 @@ function Register({ handleLogin }) {
                     <input 
                         type="password"
                         name="password"
-                        placeholder="password"
+                        placeholder="Enter a new or current password"
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         required
@@ -83,7 +117,7 @@ function Register({ handleLogin }) {
                     <input 
                         type="password"
                         name="confirmPassword"
-                        placeholder="password"
+                        placeholder="Confirm password"
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
                         required
@@ -91,7 +125,7 @@ function Register({ handleLogin }) {
                     <input 
                         type="text"
                         name="phone"
-                        placeholder="date of birth (MM-DD-YYYY)"
+                        placeholder={userData.dob}
                         value={dob}
                         onChange={e => setDob(e.target.value)}
                         required
@@ -99,19 +133,18 @@ function Register({ handleLogin }) {
                     <input 
                         type="text"
                         name="phone"
-                        placeholder="phone number (xxx) xxx-xxxx"
+                        placeholder={userData.phoneNum}
                         value={phone}
                         onChange={e => setPhone(e.target.value)}
                         required
                     />
 
-                  <p><button className="sign-in-btn" type="submit">Submit</button></p> 
+                  <p><button className="sign-in-btn" type="submit">Save</button></p> 
                 </form>
-                <p className="small-font">Already have an account? <NavLink exact to="/signin"><span className="text-link">Login here</span></NavLink>.</p>
                 </div>
             </div>
         </div>
-    )
+  )
 }
 
-export default Register
+export default EditProfile

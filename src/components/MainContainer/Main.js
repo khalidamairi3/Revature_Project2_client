@@ -14,6 +14,7 @@ import Register from './Patient/Register';
 import PhysicianLogin from './Physician/PhysicianLogin';
 import PhysicianProfile from './Physician/PhysicianProfile';
 import PatientProfile from './Patient/PatientProfile';
+import EditProfile from './Patient/EditProfile';
 import PhysicianChat from './Physician/PhysicianChat';
 import PhysicianAppointments from './Physician/PhysicianAppointments';
 import Patients from './Physician/Patients';
@@ -32,6 +33,7 @@ function Main({ handleLogin, handlePhysicianLogin, userData, setUserData, token,
             {/* <Route exact path="/search-medical-conditions" element={<SearchDiseases />} /> */}
             <Route exact path="/signin" element={<SignIn handleLogin={handleLogin} setUserData={setUserData} setToken={setToken} />} />
             <Route exact path="/patient-profile" element={<PatientProfile userData={userData} token={token} />} />
+            <Route exact path="/edit-profile" element={<EditProfile userData={userData} token={token} />} />
             <Route exact path="/register" element={<Register handleLogin={handleLogin}/>} />
 
             <Route exact path="/provider-login" element={<PhysicianLogin userData={userData} setUserData={setUserData} token={token} setToken={setToken} handlePhysicianLogin={handlePhysicianLogin} />} />
