@@ -2,17 +2,14 @@ import React, { useState } from 'react';
 import './ConsultNote.css';
 import axios from 'axios';
 
-function ConsultNote({ id, note, handleNewNote, closeModal }) {
+function ConsultNote({ id, note, handleNewNote, closeModal, token }) {
   const [newNote, setNewNote] = useState();
 
   function handleSubmit(e) {
       e.preventDefault();
 
-      const appNote = {
-        "note": newNote
-      }
+      axios.put(`appointment/${id}/note`, newNote, {headers: {"Authorization": `Bearer ${token}`}})
 
-      axios.put(`appointment/${id}/note`, appNote);
       handleNewNote(newNote);
   } 
 

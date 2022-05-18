@@ -53,7 +53,7 @@ function DrAppointmentInfo({ appointment, handleDeleted, token }) {
     <>
         { showConsultNote ? 
             <div className="consult-note-container">
-                <ConsultNote id={id} note={note} handleNewNote={handleNewNote} closeModal={handleConsultNote} /> 
+                <ConsultNote id={id} note={note} handleNewNote={handleNewNote} closeModal={handleConsultNote} token={token} /> 
             </div>
         : null }
         <tr className="appointment-info">
