@@ -19,10 +19,6 @@ function PatientProfile({ userData, profile, token }) {
         <p>Contact: {userData.phoneNum}</p>
         <p>Session token: <span className="token-span">{token}</span></p> 
       </div>
-      <button onClick={onEditProfile}>Edit Profile</button>
-      <div className="edit-profile-div">
-        
-      </div>
     </div>
   )
 }
